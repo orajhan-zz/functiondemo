@@ -16,7 +16,7 @@ def handler(ctx, data: io.BytesIO=None):
     logging.getLogger().info(dict(ctx.Config()))
     logging.getLogger().info("Incoming request for URL %s with headers %s", ctx.RequestURL(), ctx.HTTPHeaders())
 
-    url = "https://guk9elytviiyjhz-devadw.adb.uk-london-1.oraclecloudapps.com/ords/covid/demo/test/"
+    url = "REST API to delete data"
 
     #resp = get_data(url)
     resp = delete_data(url)
