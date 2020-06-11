@@ -8,13 +8,20 @@ import logging
 #ctx is a context object that provides information about the function and request-specific attributes
 #FDK provides data as io.BytesIO type
 #data is an object passed by the trigger request containing the payload – the HTTP request body, when calling the function using HTTP
-#Using the FDK you don't have to worry about reading input from standard input and writing to standard output to return your response. 
+#Using the FDK you don't have to worry about reading input from standard input and writing to standard output to return your response.
 #The FDK let's you focus on your function logic and not the mechanics.
 
 def handler(ctx, data: io.BytesIO=None):
     try:
-        logging.getLogger().info("Read data : %s",data.read())
-        url = "Your REST API endpoint"
+        logging.getLogger().info("Read data : %s", data.getbuffer())
+        if len(data.getvalue()) == 0:
+            input_data = "No user input data"
+        else:
+            logging.getLogger().info("Read data : %s",data.getvalue())
+            body = json.loads(data.getvalue())
+            input_data = body.get("input")
+
+        url = "https://guk9elytviiyjhz-devadw.adb.uk-london-1.oraclecloudapps.com/ords/covid/demo/test/"
         # resp = get_data(url)
         resp = delete_data(url)
 
@@ -22,7 +29,7 @@ def handler(ctx, data: io.BytesIO=None):
         print(str(ex))
 
     return response.Response(ctx, response_data=json.dumps(
-            {"Funtion status": "jhan function was invoked!!!",
+            {"Input data": input_data,
             "ctx.AppID" : ctx.AppID(),
             "ctx.FnID" : ctx.FnID(),
             "ctx.CallID" : ctx.CallID(),
@@ -41,4 +48,3 @@ def delete_data(url):
     resp = requests.delete(url)
     print("status code: {}".format(resp.status_code))
     return resp
-
