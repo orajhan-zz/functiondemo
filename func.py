@@ -8,6 +8,8 @@ import logging
 #ctx is a context object that provides information about the function and request-specific attributes
 #FDK provides data as io.BytesIO type
 #data is an object passed by the trigger request containing the payload – the HTTP request body, when calling the function using HTTP
+#Using the FDK you don't have to worry about reading input from standard input and writing to standard output to return your response. 
+#The FDK let's you focus on your function logic and not the mechanics.
 
 def handler(ctx, data: io.BytesIO=None):
     try:
