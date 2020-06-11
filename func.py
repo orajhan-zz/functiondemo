@@ -13,15 +13,16 @@ import logging
 
 def handler(ctx, data: io.BytesIO=None):
     try:
-        logging.getLogger().info("Read data : %s", data.getbuffer())
+        #no user input
         if len(data.getvalue()) == 0:
             input_data = "No user input data"
         else:
+            #log user input
             logging.getLogger().info("Read data : %s",data.getvalue())
             body = json.loads(data.getvalue())
             input_data = body.get("input")
 
-        url = "REST API"
+        url = "Your REST API Endpoint"
         # resp = get_data(url)
         resp = delete_data(url)
 
