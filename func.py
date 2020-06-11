@@ -11,7 +11,7 @@ import logging
 
 def handler(ctx, data: io.BytesIO=None):
     try:
-        url = "https://bxwfroz5ngdlfndrd4ic6gatwi.apigateway.uk-london-1.oci.customer-oci.com/v1/delete"
+        url = "Your REST API endpoint"
 
         # resp = get_data(url)
         resp = delete_data(url)
