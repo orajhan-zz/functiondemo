@@ -11,8 +11,8 @@ import logging
 
 def handler(ctx, data: io.BytesIO=None):
     try:
+        logging.getLogger().info("Read data : %s",data.read())
         url = "Your REST API endpoint"
-
         # resp = get_data(url)
         resp = delete_data(url)
 
