@@ -21,7 +21,7 @@ def handler(ctx, data: io.BytesIO=None):
             body = json.loads(data.getvalue())
             input_data = body.get("input")
 
-        url = "https://guk9elytviiyjhz-devadw.adb.uk-london-1.oraclecloudapps.com/ords/covid/demo/test/"
+        url = "REST API"
         # resp = get_data(url)
         resp = delete_data(url)
 
