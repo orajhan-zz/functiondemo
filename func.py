@@ -10,19 +10,23 @@ import logging
 #data is an object passed by the trigger request containing the payload – the HTTP request body, when calling the function using HTTP
 
 def handler(ctx, data: io.BytesIO=None):
-    logging.getLogger().info("jhan function was invoked!!!")
-    logging.getLogger().info(ctx.FnID())
-    logging.getLogger().info(ctx.AppID())
-    logging.getLogger().info(dict(ctx.Config()))
-    logging.getLogger().info("Incoming request for URL %s with headers %s", ctx.RequestURL(), ctx.HTTPHeaders())
+    try:
+        url = "https://bxwfroz5ngdlfndrd4ic6gatwi.apigateway.uk-london-1.oci.customer-oci.com/v1/delete"
 
-    url = "REST API to delete data"
+        # resp = get_data(url)
+        resp = delete_data(url)
 
-    #resp = get_data(url)
-    resp = delete_data(url)
+    except (Exception, ValueError) as ex:
+        print(str(ex))
 
-    #return response.Response(ctx, response_data=json.dumps(resp.json()), headers={"Content-Type": "application/json"})
-    return response.Response(ctx, response_data=resp, headers={"Content-Type": "application/json"})
+    return response.Response(ctx, response_data=json.dumps(
+            {"Funtion status": "jhan function was invoked!!!",
+            "ctx.AppID" : ctx.AppID(),
+            "ctx.FnID" : ctx.FnID(),
+            "ctx.CallID" : ctx.CallID(),
+            "ctx.Config" : dict(ctx.Config()),
+            "response code": resp.status_code}), headers={"Content-Type": "application/json"})
+
 
 #GET data in Covid.test
 def get_data(url):
@@ -35,5 +39,4 @@ def delete_data(url):
     resp = requests.delete(url)
     print("status code: {}".format(resp.status_code))
     return resp
-
 
